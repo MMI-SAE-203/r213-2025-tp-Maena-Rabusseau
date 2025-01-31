@@ -4,6 +4,13 @@ import Footer from "../components/Footer.astro";
 import localBirdImage from "../assets/local-bird.jpg";
 import Image from "astro/components/Image.astro";
 import Card from "../components/Card.astro";
+import { AllMaisons } from "../backend.mjs";
+
+const offres = await AllMaisons();
+
+console.log(offres);
+
+/*
 const offres = [
     {
         adresse: "2821 Lake Sevilla, Palm Harbor, TX",
@@ -39,6 +46,7 @@ const offres = [
         imgUrl: "image3.png",
     },
 ];
+*/
 import alpinejs from "@astrojs/alpinejs";
 ---
 
@@ -65,9 +73,11 @@ import alpinejs from "@astrojs/alpinejs";
 
         <div x-show="!showFavorites">
             {offres.map((offre) => <Card {...offre} />)}
+            }
+            <div x-show=" showFavorites">
+                {offres.map((offre) => offre.favori && <Card {...offre} />)}
+                }
+            </div>
         </div>
-        <div x-show=" showFavorites">
-            {offres.map((offre) => offre.favori && <Card {...offre} />)}
-        </div>
-    </div>
-</Base>
+    </div></Base
+>
