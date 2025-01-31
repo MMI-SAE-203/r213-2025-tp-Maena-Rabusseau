@@ -5,7 +5,7 @@ const pb = new PocketBase('http://127.0.0.1:8090');
 
 export async function AllMaisons() {
     let records = await pb.collection('Maison').getFullList();
-    console.log("ici udef ?", records);
+    console.log( records);
     records = records.map((Maison) => {
         Maison.img = pb.files.getURL(Maison, Maison.images);
         return Maison;

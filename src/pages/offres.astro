@@ -66,18 +66,51 @@ import alpinejs from "@astrojs/alpinejs";
     </div> -->
 
     <div x-data="{ showFavorites: false }">
-        <button @click=" showFavorites: !showFavorites">
+        <button @click=" showFavorites = !showFavorites">
             <span x-show=" !showFavorites ">Afficher les favoris</span>
             <span x-show=" showFavorites">Afficher tout</span>
         </button>
 
         <div x-show="!showFavorites">
+            Toutes les offres
             {offres.map((offre) => <Card {...offre} />)}
-            
-            <div x-show=" showFavorites">
-                {offres.map((offre) => offre.favori && <Card {...offre} />)}
-                
-            </div>
         </div>
-    </div></Base
+        <div x-show="showFavorites">
+            Seulement les favoris
+            {offres.map((offre) => offre.favori && <Card {...offre} />)}
+        </div>
+    </div>
+
+
+
+<div x-data="{ open: false }">
+    <button x-on:click="open = !open" class="p-2 bg-red-300 rounded">
+        Offres sous forme de grille
+    </button>
+
+    <div x-bind:class="open ? 'card ' : 'hidden'" class="">
+        <div class="p-4 bg-gray-200 border rounded"></div>
+        <div class="p-4 bg-gray-200 border rounded"></div>
+        <div class="p-4 bg-gray-200 border rounded"></div>
+        <div class="p-4 bg-gray-200 border rounded"></div>
+    </div>
+</div>
+
+<div x-data="{ open: false }">
+    <button x-on:click="open = !open" class="p-2 bg-cyan-500 rounded">
+        Offres sous forme de liste
+    </button>
+
+    <div x-bind:class="open ? 'card ' : 'hidden'" class="">
+        <ul>
+            <li></li> 
+            
+            <li></li>
+        </ul>
+    </div>
+</div>
+
+
+
+</Base
 >
