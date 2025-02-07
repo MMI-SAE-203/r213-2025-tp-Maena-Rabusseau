@@ -1,0 +1,13 @@
+---
+const { surface } = Astro.params;
+import { getOffre } from '../../../backend.mjs';
+
+const offres = await getOffre(surface);
+
+---
+
+
+<Base titre{ Maisons avec une surface >${surface}m2}>
+
+    {surfa}
+<base/>
