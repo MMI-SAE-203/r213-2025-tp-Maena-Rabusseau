@@ -1,11 +1,14 @@
 ---
 const offre = Astro.props;
 ---
-
+<div>
 <li class="m-10">{offre.nomMaison}</li>
 <!-- <li>{offre.adresse}</li> 
   <li>{offre.nbChambres}</li>
 <li>{offre.nbSdb}</li>
 <li>{offre.prix}</li>
 <li>{offre.surface}</li> -->
-<img class="size-64 m-10" src={offre.img} alt="" />
+<img class="size-64 m-10" src={offre.img} alt=""
+ />
+ <a href={`/offres/${offre.id}`}>Voir plus</a>
+</div>

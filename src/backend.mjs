@@ -67,3 +67,17 @@ Etape 18. ´ Modifier la collection maison pour ajouter la relation avec la coll
 Etape 19. ´ Ajouter une fonction dans le fichier backend.mjs permettant de remonter les donn´ees d’un agent
 en passant son id en param`etre.
 */
+
+
+
+//backend.mjs
+export async function getOffre(id) {
+    try {
+        let data = await pb.collection('maison').getOne(id);
+        data.imageUrl = pb.files.getURL(data, data.image);
+        return data;
+    } catch (error) {
+        console.log('Une erreur est survenue en lisant la maison', error);
+        return null;
+    }
+}
