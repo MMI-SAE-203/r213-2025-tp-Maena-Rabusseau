@@ -5,11 +5,14 @@ import localBirdImage from "../assets/local-bird.jpg";
 import Image from "astro/components/Image.astro";
 import Card from "../../components/Card.astro";
 import { AllMaisons } from "../../backend.mjs";
+import { addOffre } from "../../backend.mjs";
+import { filterByPrix } from "../../backend.mjs";
 
 
-const offres = await AllMaisons();
 
-console.log(offres);
+// const offres = await AllMaisons();
+
+// console.log(offres);
 
 /*
 
@@ -50,11 +53,39 @@ const offres = [
 ];
 */
 
+let message = '';
+let offres = [];
+if (Astro.request.method === "POST") {
+    const data = await Astro.request.formData();
+    const minPrix = parseInt(data.get("minPrix") as string);
+    const maxPrix = parseInt(data.get("maxPrix") as string);
+
+    if (minPrix > 0 && maxPrix > 0 && maxPrix > minPrix) {
+        offres = await filterByPrix(minPrix, maxPrix);
+		if(offres.length === 0) {
+			message = `Pas d'offres entre ${minPrix}€ et ${maxPrix}€`;
+		} else {
+        	message = `Liste des offres entre ${minPrix}€ et ${maxPrix}€`
+		}
+    } else {
+        message = "Veuillez entrer des valeurs valides pour le prix.";
+        offres = await AllMaisons();
+    }
+} else {
+    offres = await AllMaisons  ();
+}
 
 
 ---
 
-<Base titre="Offres">
+<Base>
+
+<form action="/offres" method="POST">
+    <input type="number" name="minPrix" placeholder="Prix minimum" />
+    <input type="number" name="maxPrix" placeholder="Prix maximum" />
+    <input type="submit" value="Filtrer par prix" />
+</form>
+
     <h1 class="text-3xl">Offres</h1>
     <!-- <img src={} alt="villa avec piscine "> -->
 
@@ -115,12 +146,6 @@ const offres = [
 </div>
 
 
-
-<form action="/offres" method="POST">
-    <input type="number" name="minPrix" placeholder="Prix minimum" />
-    <input type="number" name="maxPrix" placeholder="Prix maximum" />
-    <input type="submit" value="Filtrer par prix" />
-</form>
 
 
 
