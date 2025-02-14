@@ -12,6 +12,7 @@ const offres = await AllMaisons();
 console.log(offres);
 
 /*
+
 const offres = [
     {
         adresse: "2821 Lake Sevilla, Palm Harbor, TX",
@@ -48,7 +49,9 @@ const offres = [
     },
 ];
 */
-import alpinejs from "@astrojs/alpinejs";
+
+
+
 ---
 
 <Base titre="Offres">
@@ -110,6 +113,19 @@ import alpinejs from "@astrojs/alpinejs";
         </ul>
     </div>
 </div>
+
+
+
+<form action="/offres" method="POST">
+    <input type="number" name="minPrix" placeholder="Prix minimum" />
+    <input type="number" name="maxPrix" placeholder="Prix maximum" />
+    <input type="submit" value="Filtrer par prix" />
+</form>
+
+
+
+
+
 
 
 </Base>
