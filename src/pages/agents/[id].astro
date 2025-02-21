@@ -1,0 +1,28 @@
+---
+import { getAgent } from "../../backend.mjs";
+import { AllMaisonsAgent } from "../../backend.mjs";
+
+import Base from "../../layouts/Base.astro";
+import Card from "../../components/Card.astro";
+import { ACTION_ERROR_CODES, ACTION_QUERY_PARAMS, ActionError } from "astro:actions";
+const offre = Astro.props;
+
+const { id } = Astro.params;
+const agent = await getAgent(id);
+if (!agent) {
+  return Astro.redirect("/agents");
+}
+---
+
+<Base titre={agent.nom}>
+  <h2>{agent.prenom}</h2>
+  <ul>
+    <li>{agent.email}</li>
+    <ul>
+      {agent.expand?.Maison_via_Agent.map((m) => <Card {...m}/>)}
+
+      <!-- <Card /> -->
+      <!-- <img class="size-64 m-10" src={offre.img} alt="" /> -->
+    </ul>
+  </ul>
+</Base>

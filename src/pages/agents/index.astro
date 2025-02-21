@@ -1,0 +1,100 @@
+---
+import Base from "../../layouts/Base.astro";
+import Footer from "../../components/Footer.astro";
+import localBirdImage from "../assets/local-bird.jpg";
+import Image from "astro/components/Image.astro";
+import Card from "../../components/Card.astro";
+import { AllMaisons, AllAgents } from "../../backend.mjs";
+import { addOffre } from "../../backend.mjs";
+import { filterByPrix } from "../../backend.mjs";
+import { getAgent } from "../../backend.mjs";
+
+
+
+let message = '';
+let agents = await AllAgents();
+
+
+
+---
+
+<Base>
+
+<!-- <form action="/agents" method="POST">
+    <input type="number" name="minPrix" placeholder="Prix minimum" />
+    <input type="number" name="maxPrix" placeholder="Prix maximum" />
+    <input type="submit" value="Filtrer par prix" />
+</form> -->
+
+    <h1 class="text-3xl">Agents</h1>
+   
+    <div class="m-5 mb-5" x-data="{ showFavorites: false }">
+        <button @click=" showFavorites = !showFavorites">
+            <!-- <span x-show=" !showFavorites ">Afficher les favoris</span>
+            <span x-show=" showFavorites">Afficher tout</span> -->
+        </button>
+
+        <div class="m-5 p-5" x-show="!showFavorites">
+            Toutes les Agents
+            {agents.map((agent) =>
+             <a class="m-5 p-8 mb-8 space-x-10 my-9 px-9  " href={`/agents/${agent.id}`}>{agent.nom} {agent.prenom} {agent.email}</a>)}
+        </div>
+        <!-- <div x-show="showFavorites">
+            Seulement les favoris
+            {agents.map((agent) => 
+              <a href={`/agents/${agent.id}`}>{agent.nom} {agent.prenom} {agent.email}</a>)}
+        </div> -->
+    </div>
+
+
+
+ <!-- <div x-data="{ open: false }">
+    <button x-on:click="open = !open" class="p-2 bg-red-300 rounded">
+        Offres sous forme de grille
+    </button>
+
+    <div x-bind:class="open ? 'card ' : 'hidden'" class="">
+        <div class="p-4 bg-gray-200 border rounded"></div>
+        <div class="p-4 bg-gray-200 border rounded"></div>
+        <div class="p-4 bg-gray-200 border rounded"></div>
+        <div class="p-4 bg-gray-200 border rounded"></div>
+    </div>
+</div>
+
+<div x-data="{ open: false }">
+    <button x-on:click="open = !open" class="p-2 bg-cyan-500 rounded">
+        Offres sous forme de liste
+    </button>
+
+    <div x-bind:class="open ? 'card ' : 'hidden'" class="">
+        <ul>
+           
+        </ul>
+    </div> -->
+</div>
+
+
+
+
+
+
+
+
+
+</Base>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,5 +1,10 @@
 ---
 const offre = Astro.props;
+
+
+
+// import { setFavori } from "../../backend.mjs";
+
 ---
 <div>
 <li class="m-10">{offre.nomMaison}</li>
@@ -11,4 +16,14 @@ const offre = Astro.props;
 <img class="size-64 m-10" src={offre.img} alt=""
  />
  <a href={`/offres/${offre.id}`}>Voir plus</a>
+
+ <button class="absolute bottom-0 left-0 p-2 text-white rounded-br-lg" @click="clickFavori">
+  <img :src="favori ? '/favorite_filled.png' : '/favorite.png'" alt="Favorite Icon" class="w-6 h-6" />
+</button>
+
 </div>
+
+<script>
+  //@ts-nocheck
+  window.setFavori = setFavori;
+</script>

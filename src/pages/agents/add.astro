@@ -1,0 +1,47 @@
+---
+import { addAgent } from "../../backend.mjs";
+import Base from "../../layouts/Base.astro";
+
+let message = "";
+if (Astro.request.method === "POST") {
+    const formData = await Astro.request.formData();
+    const response = await addAgent(formData);
+    message = response.message;
+}
+---
+
+<Base>
+    <h1 class="text-lg">Ajouter un agent</h1>
+    {message && <p class="text-red-600">{}</p>}
+    <form action="/agents/add" method="POST" enctype="multipart/form-data">
+        <input
+            type="text"
+            name="nom"
+            placeholder="Nom de l'agent"
+            required
+            class="w-full mt-2 p-2 border border-gray-300 rounded-md"
+        />
+        <!-- <input type="number" name="prix" placeholder="Prix" /> -->
+        <!-- <input
+            type="number"
+            name="nbSdb"
+            placeholder="Nombre de salles de bain"
+        />
+        <input
+            type="number"
+            name="nbChambres"
+            placeholder="Nombre de chambres" -->
+            <input
+            type="text"
+            name="prenom"
+            placeholder="Prénom de l'agent"
+            required
+            class="w-full mt-2 p-2 border border-gray-300 rounded-md"
+        />
+        <!-- <input type="number" name="surface" placeholder="Superficie" /> -->
+        <input type="file" name="images" />
+        <button type="submit">Ajouter</button>
+    </form>
+
+     </Base
+> 

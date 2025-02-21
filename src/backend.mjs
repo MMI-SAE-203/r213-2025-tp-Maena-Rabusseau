@@ -5,7 +5,7 @@ const pb = new PocketBase('http://127.0.0.1:8090');
 
 export async function AllMaisons() {
     let records = await pb.collection('Maison').getFullList();
-    console.log( records);
+    console.log(records);
     records = records.map((Maison) => {
         Maison.img = pb.files.getURL(Maison, Maison.images);
         return Maison;
@@ -121,4 +121,75 @@ export async function filterByPrix(prixMin, prixMax) {
         console.log('Une erreur est survenue en filtrant la liste des maisons', error);
         return [];
     }
+}
+
+
+
+
+
+
+
+export async function getAgent(id) {
+    try {
+        let data = await pb.collection('agent').getOne(id, { expand: 'Maison_via_Agent' });
+        console.log(data);
+        data.img = pb.files.getURL(data, data.image);
+        data.expand.Maison_via_Agent = data.expand.Maison_via_Agent.map((maison) => {
+            maison.img = pb.files.getURL(maison, maison.images);
+            return maison;
+        });
+        return data;
+    } catch (error) {
+        console.log('Une erreur est survenue en lisant l agent', error);
+        return null;
+    }
+}
+
+
+
+export async function addAgent(agent) {
+    try {
+        await pb.collection('agent').create(agent);
+        return {
+            success: true,
+            message: 'Agent ajoutée avec succès'
+        };
+    } catch (error) {
+        console.log('Une erreur est survenue en ajoutant l agent', error);
+        return {
+            success: false,
+            message: 'Une erreur est survenue en ajoutant  l agent'
+        };
+    }
+}
+
+
+export async function AllAgents() {
+    let records = await pb.collection('Agent').getFullList();
+    console.log(records);
+    records = records.map((Agent) => {
+        Agent.img = pb.files.getURL(Agent, Agent.images);
+        return Agent;
+    });
+
+    return records;
+}
+
+
+
+
+export async function AllMaisonsAgent() {
+    const allRecords = await pb.collection('Maison').getFullList({ expand: 'Agent', });
+
+
+    return allRecords;
+}
+
+
+
+
+
+
+export async function setFavori(house) {
+    await pb.collection('maison').update(house.id, {favori: !house.favori});
 }

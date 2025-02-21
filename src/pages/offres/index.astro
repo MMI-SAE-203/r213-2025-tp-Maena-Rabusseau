@@ -7,6 +7,9 @@ import Card from "../../components/Card.astro";
 import { AllMaisons } from "../../backend.mjs";
 import { addOffre } from "../../backend.mjs";
 import { filterByPrix } from "../../backend.mjs";
+import { setFavori } from "../../backend.mjs";
+
+
 
 
 
@@ -116,6 +119,19 @@ if (Astro.request.method === "POST") {
         </div>
     </div>
 
+    
+
+
+  <div>  x-data={'{favori: ${offre.favori}, clickFavori() {this.favori = !this.favori; setFavori(${JSON.stringify(offre)});}}'}
+
+  </div>
+
+
+
+
+
+
+
 
 
 <div x-data="{ open: false }">
@@ -137,12 +153,7 @@ if (Astro.request.method === "POST") {
     </button>
 
     <div x-bind:class="open ? 'card ' : 'hidden'" class="">
-        <ul>
-            <li></li> 
-            
-            <li></li>
-        </ul>
-    </div>
+      
 </div>
 
 
